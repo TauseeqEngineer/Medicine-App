@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // Composable function for setting up the navigation graph
     @Composable
     fun NavGraph(userViewModel: UserViewModel, startDestination: String) {
         val navController = rememberNavController()
@@ -66,6 +67,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        //Navigation graph with all composable routes
         NavHost(navController = navController, startDestination = startDestination) {
             composable("login") {
                 LoginScreen(viewModel = userViewModel,

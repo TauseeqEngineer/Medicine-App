@@ -26,16 +26,16 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun loadMedicines() {
-        // Simulate network call or load from repository
+        // Network call or load from repository
         viewModelScope.launch {
             _uiState.value = UIState.Loading // Set loading state
             try {
                 // Collect the Flow and pass the list of medicines to the success state
                 repository.getMedicines().collect { medicines ->
-                    _uiState.value = UIState.Success(medicines) // Set success state with actual data
+                    _uiState.value = UIState.Success(medicines)
                 }
             } catch (e: Exception) {
-                _uiState.value = UIState.Error("Failed to load data: ${e.message}") // Set error state
+                _uiState.value = UIState.Error("Failed to load data: ${e.message}")
             }
         }
     }

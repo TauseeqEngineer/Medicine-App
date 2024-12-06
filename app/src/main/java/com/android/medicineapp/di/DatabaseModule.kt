@@ -18,6 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
+    // Provides a singleton instance of the Room database
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
@@ -25,25 +26,27 @@ object DatabaseModule {
             context,
             AppDatabase::class.java,
             "medicine_app_db"
-        ).fallbackToDestructiveMigration()
+        ).fallbackToDestructiveMigration() // Automatically migrates the database on schema changes
             .build()
     }
 
+    // Provides an instance of the MedicineDao for database interactions related to medicine
     @Provides
     fun provideMedicineDao(database: AppDatabase): MedicineDao {
         return database.medicineDao()
     }
 
+    // Provides an instance of the UserDao for database interactions related to user data
     @Provides
     fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()
     }
 
+    // Provides a singleton instance of UserRepository, which handles user-related data operations
     @Provides
     @Singleton
-    fun provideRepository(
-        userDao: UserDao
-    ): UserRepository {
+    fun provideRepository(userDao: UserDao): UserRepository {
         return UserRepositoryImpl(dao = userDao)
     }
 }
+

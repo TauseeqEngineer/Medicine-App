@@ -19,16 +19,19 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    // Provides ApiService instance for Retrofit API calls
     @Provides
     @Singleton
     fun provideApiService(): ApiService {
+        // Retrofit builder to configure the API client
         return Retrofit.Builder()
             .baseUrl("https://run.mocky.io")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            .addConverterFactory(GsonConverterFactory.create())  // Converts JSON responses to Kotlin objects using Gson
+            .build()  // Build the Retrofit client
             .create(ApiService::class.java)
     }
 
+    // Provides MedicineRepository instance, which relies on ApiService and MedicineDao
     @Provides
     @Singleton
     fun provideRepository(
@@ -37,6 +40,4 @@ object AppModule {
     ): MedicineRepository {
         return MedicineRepositoryImpl(api = apiService, dao = medicineDao)
     }
-
-
 }

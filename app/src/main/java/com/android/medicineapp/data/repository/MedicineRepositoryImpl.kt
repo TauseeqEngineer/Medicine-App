@@ -20,7 +20,6 @@ class MedicineRepositoryImpl @Inject constructor(
         return flow {
             // Fetch from API
             val response = api.getMedicines()
-            recordLog("API response: $response")
             // Parse and map the API response to the Medicine model
             val medicines = response.problems.flatMap { problem ->
                 problem.Diabetes?.flatMap { diabetes ->
