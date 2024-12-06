@@ -1,4 +1,4 @@
-package com.android.medicineapp
+package com.android.medicineapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
